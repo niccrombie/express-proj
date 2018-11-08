@@ -5,8 +5,7 @@ const School = require('../models/School.js')
 
 //request student entity
 router.get('/student', (req, res) => {
-    //const query = req.query
-    let fileters = req.query
+    let filters = req.query
     if (req.query.grade != null){
         filters = {
             grade: {
@@ -25,6 +24,46 @@ router.get('/student', (req, res) => {
         res.json({
             confirmation: 'fail',
             message: 'Student ' + id + ' not found.'
+        })
+    })
+})
+
+//request student update
+router.get('/student/update', (req, res) => {
+    const query = req.query
+    const studentId = query.id
+    delete query['id']
+    Student.findByIdAndUpdate(studentId, query, {new:true})
+    .then(student => {
+        res.json({
+            confirmation: 'success',
+            data: student
+        })
+    })
+    .catch(err => {
+        res.json({
+            confirmation: 'fail',
+            message: err.message
+        })
+    })
+})
+
+//remove student entity
+
+router.get('/student/remove', (req, res) => {
+    const query = req.query
+    
+    Student.findByIdAndRemove(query.id)
+    .then(data => {
+        res.json({
+            confirmation: 'success',
+            data: 'Student ' +query.id+ ' successfully removed'
+        })
+    })
+    .catch(err => {
+        res.json({
+            confirmation: 'fail',
+            message: err.message
         })
     })
 })
