@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-
 const Student = require('../models/Student.js')
 const School = require('../models/School.js')
 
@@ -55,13 +54,6 @@ router.get('/grade/:id', (req, res) => {
 //request school entity
 router.get('/school', (req, res) => {
     let filters = req.query
-    /*if (req.query.grade != null){
-        filters = {
-            grade: {
-                $gt: req.query.grade
-            }
-        }
-    }*/
     School.find(filters)
     .then(school => {
         res.json({
@@ -79,9 +71,18 @@ router.get('/school', (req, res) => {
 
 // create student entity
 router.post('/student', (req, res) => {
-    res.json({
-        confirmation: 'success',
-        data: req.body
+    Student.create(req.body)
+    .then(student => {
+        res.json({
+            confirmation: 'success',
+            data: student
+        })
+    })
+    .catch(err => {
+        res.json({
+            confirmation: 'fail',
+            message: err.message
+        })
     })
 })
 
