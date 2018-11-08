@@ -1,12 +1,18 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-<form>
-    <input type="text" name="name" /><br />
-    <input type="text" name="address" /><br />
-    <input type="text" name="city" /><br />
-    <input type="text" name="state" /><br />
-    <input type="text" name="" /><br />
-    <input type="text" name="" /><br />
-    
-    
-</form>
+<body class="container">
+    <div class="">
+        <h1>{{title}}</h1>
+        <p>Welcome to {{title}}</p>
+        <p>Use the following form to add a new student profile</p>
+        <form action="/api/student" method="post">
+            <input type="text" name="name" placeholder="First Name" /><br />
+            <input type="text" name="address" placeholder="Adress" /><br />
+            <input type="text" name="city" placeholder="City" /><br />
+            <input type="text" name="state" /><br />
+            <input type="text" name="school" /><br />
+            <input type="text" name="gradeLevel" /><br />
+            <input type="text" name="email" /><br />
+            <input type="text" name="phone" /><br />
+            <input type="submit" value="Add Profile"/><br>
+        </form>
+    </div>
+</body>

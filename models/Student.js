@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const
-
 const Student = new mongoose.Schema ({
     name: {type:String, trim:true, default:''},
     address: {type:String, trim:true, default:''},
