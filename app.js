@@ -1,10 +1,11 @@
-/*jslint node:true*/
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
+var compression = require('compression');
+var helmet = require('helmet');
 
 // import routes
 var indexRouter = require('./routes/index');
@@ -16,7 +17,7 @@ var api = require('./routes/api');
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://mongo-proj:mongo-proj123@ds145113.mlab.com:45113/mongo-proj';
+var mongoDB = process.env.MONGODB_URI || 'mongodb://mongo-proj:mongo-proj123@ds145113.mlab.com:45113/mongo-proj';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -31,6 +32,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(compression());
+app.use(helmet());
 
 // set routes
 app.use('/', indexRouter);
